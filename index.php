@@ -3,17 +3,18 @@ session_start();
 require_once 'PostHandler.php';
 $FormHandler = new FormHandler;
 $connection = $FormHandler->connectToMySQL('localhost', 'root', '', 'testdb');
-$table = $FormHandler->createNewSQLTable("newtable", $connection);
+$table = $FormHandler->createNewSQLTable("PHP_Database", $connection);
 
 //AutoFill of User-Field if User was already set
-function setUser($user){
+function setUser($user)
+{
     $FormHandler = new FormHandler;
     $user = $FormHandler->test_input($user);
     $_SESSION["User"] = $user;
-    echo "<script>document.getElementById('name').value = '".$user."'</script>";
+    echo "<script>document.getElementById('name').value = '" . $user . "'</script>";
 }
 
-if (isset($_SESSSION["User"])){
+if (isset($_SESSSION["User"])) {
     setUser($user);
 }
 
@@ -58,7 +59,7 @@ if (isset($_POST["message"]) && isset($_POST["User"])) {
         $testedUser = $FormHandler->test_input($_POST['User']);
         $FormHandler->addLineToTableInDatabase($table, $testedUser, $testedMessage, $connection);
 
-        echo $FormHandler->getTableAsHTMLTable("newtable", $connection);
+        echo $FormHandler->getTableAsHTMLTable($table, $connection);
     }
 }
 
