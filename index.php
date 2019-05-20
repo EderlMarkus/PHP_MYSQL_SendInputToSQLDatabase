@@ -41,6 +41,7 @@ if (isset($_POST["text"]) && isset($_POST["User"])) {
         $testedMessage = $FormHandler->test_input($_POST['text']);
         $testedUser = $FormHandler->test_input($_POST['User']);
         $FormHandler->addLineToTableInDatabase($table, $testedUser, $testedMessage, $connection);
+        echo ( $FormHandler->getTable("newtable", $connection));
     }
 }
 

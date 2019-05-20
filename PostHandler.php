@@ -2,7 +2,6 @@
 
 class FormHandler
 {
-
     public function test_input($data)
     {
         $data = trim($data);
@@ -24,7 +23,21 @@ class FormHandler
 
     public function createNewSQLTable($tablename, $databaseconnection){
         $sql = "CREATE TABLE " .$tablename. " (data varchar(255), User varchar(255), Time TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP)";
-        $databaseconnection->query($sql);
+        $query = $databaseconnection->query($sql);
         return $tablename;
     }
+
+    public function getTable($table, $databaseconnection){
+        $sql = "SELECT * FROM " . $table;
+        $result = $databaseconnection->query($sql);
+        $returnvalue = "";
+        if ($result->num_rows > 0) {
+            while($row = mysqli_fetch_array($result)) {
+                $returnvalue .= $row["data"] . "<br>" . $row["User"] . "<br><br>";
+            }        
+        }
+        return $returnvalue;
+    }
+
+
 }
