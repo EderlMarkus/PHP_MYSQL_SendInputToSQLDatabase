@@ -27,16 +27,31 @@ class FormHandler
         return $tablename;
     }
 
-    public function getTable($table, $databaseconnection){
+    public function getTableAsArray($table, $databaseconnection){
         $sql = "SELECT * FROM " . $table;
         $result = $databaseconnection->query($sql);
-        $returnvalue = "";
+        $returnarray = [];
         if ($result->num_rows > 0) {
             while($row = mysqli_fetch_array($result)) {
-                $returnvalue .= $row["data"] . "<br>" . $row["User"] . "<br><br>";
+                array_push($returnarray,$row);
             }        
         }
-        return $returnvalue;
+        return $returnarray;
+    }
+
+    public function getTableAsHTMLTable($table,$databaseconnection){
+        $tableAsArray = $this->getTableAsArray($table,$databaseconnection);
+
+        $returnHTML = "<table id='table'><tbody><tr><th>Message</th><th>User</th></tr>";
+
+        for ($i = 0; $i < sizeof($tableAsArray); $i++){
+            $returnHTML .= "<tr><td>" . $tableAsArray[$i][0] . "</td><td>" . $tableAsArray[$i][1] . "</td></tr>";
+        }
+
+        $returnHTML .= "</tbody></table>";
+
+        return $returnHTML;
+
     }
 
 

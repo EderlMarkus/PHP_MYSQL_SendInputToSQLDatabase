@@ -1,8 +1,20 @@
 <?php
+session_start();
 require_once 'PostHandler.php';
 $FormHandler = new FormHandler;
 $connection = $FormHandler->connectToMySQL('localhost', 'root', '', 'testdb');
 $table = $FormHandler->createNewSQLTable("newtable", $connection);
+
+//AutoFill of User-Field if User was already set
+function setUser($user){
+    echo "<script>document.getElementById('name').value = '".$user."'</script>";
+}
+
+if (isset($_SESSSION["User"])){
+    $user = $FormHandler->test_input($_SESSSION['User']);
+    setUser($user);
+}
+
 ?>
 
 
@@ -13,15 +25,16 @@ $table = $FormHandler->createNewSQLTable("newtable", $connection);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>PHP Input Database</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <form method="post">
-        <p>Your Name:</p>
-        <input name="User" type="text"></input>
-        <p>Your Message:</p>
-        <input name="text" type="text"></input>
+        <p class="headers">Your Name:</p>
+        <input id="name" name="User" type="text"></input>
+        <p class="headers">Your Message:</p>
+        <input id="message" name="message" type="text"></input>
         <p>
-        <input type="submit" name="submit" value="Add Data">
+        <input type="submit" id="submit" class="headers" name="submit" value="Add Data">
     </form>
 </body>
 </html>
@@ -29,19 +42,21 @@ $table = $FormHandler->createNewSQLTable("newtable", $connection);
 
 <?php
 
-if (isset($_POST["text"]) && isset($_POST["User"])) {
-
-    if (empty($_POST["User"]) && empty($_POST["text"])) {
+if (isset($_POST["message"]) && isset($_POST["User"])) {
+    if (empty($_POST["User"]) && empty($_POST["message"])) {
         echo "Please enter your Name and your Message";
     } else if (empty($_POST["User"])) {
         echo "Please enter your Name";
-    } else if (empty($_POST["text"])) {
+    } else if (empty($_POST["message"])) {
+        $_SESSION["User"] = $FormHandler->test_input($_POST["User"]);
+        setUser($_SESSION["User"]);
         echo "Please enter your Message";
     } else {
-        $testedMessage = $FormHandler->test_input($_POST['text']);
+        $testedMessage = $FormHandler->test_input($_POST['message']);
         $testedUser = $FormHandler->test_input($_POST['User']);
         $FormHandler->addLineToTableInDatabase($table, $testedUser, $testedMessage, $connection);
-        echo ( $FormHandler->getTable("newtable", $connection));
+
+        echo $FormHandler->getTableAsHTMLTable("newtable", $connection);
     }
 }
 

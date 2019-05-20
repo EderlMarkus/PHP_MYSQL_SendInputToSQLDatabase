@@ -1,0 +1,43 @@
+#table, .headers {
+  font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+#table td, #table th, .headers td, .headers th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+#table tr:nth-child(even), .headers tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+#table tr:hover, .headers tr:hover {
+  background-color: #ddd;
+}
+#table th, .headers th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: rgba(55, 0, 0, 0.75);
+  color: white;
+}
+
+#submit, .headers {
+  font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+  width: 20% !important;
+  min-width: 200px;
+  background-color: rgba(55, 0, 0, 0.75);
+  color: #eee;
+  font-weight: bold;
+  text-align: center;
+}
+
+input {
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    width: 20% !important;
+    min-width: 200px;
+  
+}
+
+
+
+/*# sourceMappingURL=style.css.map */
