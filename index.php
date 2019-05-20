@@ -7,11 +7,13 @@ $table = $FormHandler->createNewSQLTable("newtable", $connection);
 
 //AutoFill of User-Field if User was already set
 function setUser($user){
+    $FormHandler = new FormHandler;
+    $user = $FormHandler->test_input($user);
+    $_SESSION["User"] = $user;
     echo "<script>document.getElementById('name').value = '".$user."'</script>";
 }
 
 if (isset($_SESSSION["User"])){
-    $user = $FormHandler->test_input($_SESSSION['User']);
     setUser($user);
 }
 
@@ -48,10 +50,10 @@ if (isset($_POST["message"]) && isset($_POST["User"])) {
     } else if (empty($_POST["User"])) {
         echo "Please enter your Name";
     } else if (empty($_POST["message"])) {
-        $_SESSION["User"] = $FormHandler->test_input($_POST["User"]);
-        setUser($_SESSION["User"]);
+        setUser($_POST["User"]);
         echo "Please enter your Message";
     } else {
+        setUser($_POST["User"]);
         $testedMessage = $FormHandler->test_input($_POST['message']);
         $testedUser = $FormHandler->test_input($_POST['User']);
         $FormHandler->addLineToTableInDatabase($table, $testedUser, $testedMessage, $connection);
