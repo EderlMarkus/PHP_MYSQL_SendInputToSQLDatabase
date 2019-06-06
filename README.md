@@ -41,5 +41,5 @@ You can add a new line to your Table with
  $FormHandler->addLineToDatabase($table, $testedUser, $testedMessage);
 ```
 
-##Live-Demo:
+## Live-Demo:
 https://edma.at/PHP_Database/
