@@ -1,7 +1,7 @@
 <?php
 session_start();
 require_once 'PostHandler.php';
-$FormHandler = new FormHandler('localhost', 'root', 'testdb','');
+$FormHandler = new FormHandler('localhost', 'root', 'testdb', '');
 $table = $FormHandler->createNewSQLTable("PHP_Database");
 
 ?>
@@ -30,13 +30,12 @@ $table = $FormHandler->createNewSQLTable("PHP_Database");
 
 <?php
 
-
 /**
  * User-Managment: AutoFill of User-Field if User was already set */
 
- /**
-  * setUser: Checks input, sets Session-Variable and fills out HTML Input Field with a JS.
-  */
+/**
+ * setUser: Checks input, sets Session-Variable and fills out HTML Input Field with a JS.
+ */
 function setUser($user, $handler)
 {
     echo "<script>console.log('hallo')</script>";

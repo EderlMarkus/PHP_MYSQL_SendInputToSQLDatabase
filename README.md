@@ -17,14 +17,13 @@ First create a connection to your SQL-Database with the 'connectToMySQL' Functio
 
 ### Connection to your SQL-Database
 ```
-$FormHandler = new FormHandler;
-$connection = $FormHandler->connectToMySQL('localhost', 'root', '', 'testdb');
+$FormHandler = new FormHandler('localhost', 'root', 'testdb', '');
 ```
 
 ### Creating a new Table
 You can create a new Table like so:
 ```
-$table = $FormHandler->createNewSQLTable("newtable", $connection);
+$table = $FormHandler->createNewSQLTable("newtable");
 ```
 The Function 'createNewSQLTable' will return the tablename and can be stored an a variable for later usage.
 
@@ -39,5 +38,8 @@ $testedInput = $FormHandler->test_input($_POST['yourinput']);
 You can add a new line to your Table with 
 
 ```
- $FormHandler->addLineToDatabase($table, $testedUser, $testedMessage, $connection);
+ $FormHandler->addLineToDatabase($table, $testedUser, $testedMessage);
 ```
+
+##Live-Demo:
+https://edma.at/PHP_Database/
