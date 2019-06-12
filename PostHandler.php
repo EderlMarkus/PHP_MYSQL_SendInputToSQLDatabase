@@ -29,9 +29,19 @@ class FormHandler
      */
     public function addLineToTableInDatabase($table, $user, $data)
     {
-        $sql = "INSERT INTO " . $table . " (User, data) VALUES ('" . $user . "','" . $data . "') ";
-        return $this->connection->query($sql);
+        $sqlStatement = "INSERT INTO $table (User, data) VALUES (?, ?)";
+        return $this->executePreparedStatement($sqlStatement, $user, $data);
     }
+
+    /**
+    * Prepare Statement because reasons (https://www.w3schools.com/php/php_mysql_prepared_statements.asp)
+     */
+    private function executePreparedStatement($statement, $user, $data){
+        $sql = $this->connection->prepare($statement);
+        $sql->bind_param("ss", $user, $data);
+        return $sql->execute();
+    }
+
 
     /**
      * Creates a new Table in the SQL Database with the Predefined COlumns "User", "data" and "Time"
