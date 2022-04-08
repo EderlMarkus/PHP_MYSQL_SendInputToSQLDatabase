@@ -33,12 +33,13 @@ You can validate your data with the Function 'test_input' (as shown here: https:
 ```
 $testedInput = $FormHandler->test_input($_POST['yourinput']);
 ```
-
-### Add new Line to your Table
-You can add a new line to your Table with 
-
+### Using prepared statement
+Because why wouldn't you?
 ```
- $FormHandler->addLineToDatabase($table, $testedUser, $testedMessage);
+$sql = "INSERT INTO " . $table . " (User, data) VALUES (?,?)";
+$stmt = $databaseconnection->prepare($sql);
+$stmt->bind_param("ss", $user, $data);
+return $stmt->execute();
 ```
 
 ## Live-Demo:
